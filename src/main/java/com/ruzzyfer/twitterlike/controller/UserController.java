@@ -56,6 +56,19 @@ public class UserController {
         return new ResponseEntity<>(loginBackDto, HttpStatus.OK);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7); // "Bearer " ifadesini çıkartıyoruz
+            jwtService.invalidateToken(token); // Tokenı geçersiz kılma
+            return new ResponseEntity<>("Logged out successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Invalid token", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
     @GetMapping("/activeusers")
     public ResponseEntity<List<UserDto>> getAllKullanici(HttpServletRequest request) throws Exception {

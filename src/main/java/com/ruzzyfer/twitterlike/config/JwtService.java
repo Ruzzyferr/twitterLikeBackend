@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Function;
 
 @Service
@@ -19,6 +21,8 @@ public class JwtService {
 
     private static final String SECRET_KEY = "61235a4d009e8f0eb9adaf347cf851bc0e92ca07db2accec13fa71cd4b29ee1d";
     private final UserRepository userRepository;
+
+    private Set<String> tokenBlacklist = new HashSet<>();
 
     public JwtService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -31,7 +35,7 @@ public class JwtService {
 
     public boolean isValid(String token, UserDetails user){
         String username = extractUsername(token);
-        return (username.equals(user.getUsername())) && !isTokenExpired(token);
+        return (username.equals(user.getUsername())) && !isTokenExpired(token) && !isTokenBlacklisted(token);
     }
 
     public String getRole(String token){
@@ -77,6 +81,15 @@ public class JwtService {
     private SecretKey getSigninKey(){
         byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public void invalidateToken(String token) {
+        tokenBlacklist.add(token);
+    }
+
+    public boolean isTokenBlacklisted(String token) {
+        // Token "blacklist"te ise false dönecek
+        return tokenBlacklist.contains(token);
     }
 
 }
