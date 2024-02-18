@@ -11,12 +11,15 @@ import com.ruzzyfer.twitterlike.repository.UserRepository;
 import com.ruzzyfer.twitterlike.util.EmailService;
 import com.ruzzyfer.twitterlike.util.PasswordGenerator;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -143,5 +146,39 @@ public class UserService {
     }
 
 
+    @Transactional
+    public UserDto updateUser(int userId, UserDto updatedFields) {
+        // Kullanıcıyı veritabanından al
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            throw new RuntimeException("User not found with id: " + userId);
+        }
+        User user = optionalUser.get();
 
+        // Kullanıcının güncellenmesi gereken alanlarını al
+        String username = updatedFields.getUsername();
+        //String location = updatedFields.getLocation();
+        //String website = updatedFields.getWebsite();
+        //LocalDate dateOfBirth = updatedFields.getDateOfBirth();
+
+        // Kullanıcının güncellenmesi gereken alanlarını güncelle
+        if (username != null) {
+            user.setUsername(username);
+        }
+    //    if (location != null) {
+    //        user.setLocation(location);
+    //    }
+    //    if (website != null) {
+    //        user.setWebsite(website);
+    //    }
+    //    if (dateOfBirth != null) {
+    //        user.setDateOfBirth(dateOfBirth);
+    //    }
+
+        // Kullanıcıyı kaydet ve güncellenmiş bilgileri döndür
+        userRepository.save(user);
+        UserDto updatedUserDto = new UserDto();
+        BeanUtils.copyProperties(user, updatedUserDto);
+        return updatedUserDto;
+    }
 }

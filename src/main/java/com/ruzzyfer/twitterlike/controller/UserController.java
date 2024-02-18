@@ -121,6 +121,54 @@ public class UserController {
 
     }
 
+    @GetMapping("/myprofile")
+    public ResponseEntity<ProfileDto> myprofile(HttpServletRequest request) throws Exception{
+        String token = request.getHeader("Authorization");
+
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7); // "Bearer " ifadesini çıkartıyoruz
+
+            String username = jwtService.extractUsername(token);
+            User user = userRepository.findByUsername(username).orElseThrow();
+
+            if (jwtService.isValid(token,user)) {
+                    return new ResponseEntity<>(userMapper.toProfileDto(user), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @PutMapping("/updateprofile")
+    public ResponseEntity<UserDto> updateUser(HttpServletRequest request, @RequestBody UserDto updatedFields) {
+        String token = request.getHeader("Authorization");
+
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7); // "Bearer " ifadesini çıkartıyoruz
+
+            String username = jwtService.extractUsername(token);
+            User user = userRepository.findByUsername(username).orElseThrow();
+
+
+
+            if (jwtService.isValid(token,user)) {
+                UserDto updatedUser = userService.updateUser(user.getId(), updatedFields);
+
+                return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
+
+    }
+
     }
 
 

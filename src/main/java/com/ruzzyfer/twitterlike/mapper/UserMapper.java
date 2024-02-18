@@ -1,5 +1,6 @@
 package com.ruzzyfer.twitterlike.mapper;
 
+import com.ruzzyfer.twitterlike.dto.ProfileDto;
 import com.ruzzyfer.twitterlike.dto.UserDto;
 import com.ruzzyfer.twitterlike.dto.UserSaveRequestDto;
 import com.ruzzyfer.twitterlike.entity.User;
@@ -18,4 +19,5 @@ public interface UserMapper {
 
     List<UserDto> toDtoListFromEntity(List<User> all);
 
+    ProfileDto toProfileDto(User user);
 }

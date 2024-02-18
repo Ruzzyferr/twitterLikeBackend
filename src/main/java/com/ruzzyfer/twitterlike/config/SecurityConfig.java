@@ -35,7 +35,8 @@ public class SecurityConfig {
                         req->req.requestMatchers(
                                         "/user/login",
                                         "/user/save",
-                                        "/user/resetpassword")
+                                        "/user/resetpassword",
+                                        "/user/myprofile")
                                 .permitAll()
                                 .requestMatchers("/user/activeusers").hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
