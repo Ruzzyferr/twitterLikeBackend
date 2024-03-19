@@ -3,7 +3,6 @@ package com.ruzzyfer.twitterlike.controller;
 import com.ruzzyfer.twitterlike.config.JwtService;
 import com.ruzzyfer.twitterlike.dto.TweetDto;
 import com.ruzzyfer.twitterlike.dto.UserDto;
-import com.ruzzyfer.twitterlike.entity.User;
 import com.ruzzyfer.twitterlike.mapper.TweetMapper;
 import com.ruzzyfer.twitterlike.mapper.UserMapper;
 import com.ruzzyfer.twitterlike.repository.TweetRepository;

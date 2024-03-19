@@ -1,8 +1,6 @@
 package com.ruzzyfer.twitterlike.repository;
 
-import com.ruzzyfer.twitterlike.dto.TweetDto;
 import com.ruzzyfer.twitterlike.entity.Tweet;
-import com.ruzzyfer.twitterlike.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

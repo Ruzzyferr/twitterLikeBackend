@@ -1,7 +1,5 @@
 package com.ruzzyfer.twitterlike.repository;
 
-import com.ruzzyfer.twitterlike.dto.TweetDto;
-import com.ruzzyfer.twitterlike.dto.UserDto;
 import com.ruzzyfer.twitterlike.entity.Like;
 import com.ruzzyfer.twitterlike.entity.Tweet;
 import com.ruzzyfer.twitterlike.entity.User;

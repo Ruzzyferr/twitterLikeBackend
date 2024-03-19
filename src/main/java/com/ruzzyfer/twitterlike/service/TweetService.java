@@ -5,7 +5,6 @@ import com.ruzzyfer.twitterlike.dto.TweetDto;
 import com.ruzzyfer.twitterlike.dto.TweetSaveRequestDto;
 import com.ruzzyfer.twitterlike.dto.UserDto;
 import com.ruzzyfer.twitterlike.entity.Tweet;
-import com.ruzzyfer.twitterlike.entity.User;
 import com.ruzzyfer.twitterlike.mapper.TweetMapper;
 import com.ruzzyfer.twitterlike.repository.TweetRepository;
 import com.ruzzyfer.twitterlike.repository.UserRepository;
@@ -28,7 +27,7 @@ public class TweetService {
     }
 
     public TweetDto save(TweetSaveRequestDto dto) {
-        Tweet tweet = new Tweet();
+        Tweet tweet;
 
         tweet = tweetMapper.toEntityFromSaveRequestDto(dto);
 
