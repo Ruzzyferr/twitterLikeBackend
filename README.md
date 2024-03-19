@@ -8,3 +8,8 @@ Functions done:
 -  Aws S3 file uploading for posts with videos
 
 - Tweet CRUD functions are done
+
+- Like functions are done,
+
+Next:
++ create functions, follower / following users

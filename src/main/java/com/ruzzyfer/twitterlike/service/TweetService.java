@@ -8,6 +8,7 @@ import com.ruzzyfer.twitterlike.entity.Tweet;
 import com.ruzzyfer.twitterlike.entity.User;
 import com.ruzzyfer.twitterlike.mapper.TweetMapper;
 import com.ruzzyfer.twitterlike.repository.TweetRepository;
+import com.ruzzyfer.twitterlike.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,10 +19,12 @@ public class TweetService {
 
     private final TweetRepository tweetRepository;
     private final TweetMapper tweetMapper;
+    private final UserRepository userRepository;
 
-    public TweetService(TweetRepository tweetRepository, TweetMapper tweetMapper) {
+    public TweetService(TweetRepository tweetRepository, TweetMapper tweetMapper, UserRepository userRepository) {
         this.tweetRepository = tweetRepository;
         this.tweetMapper = tweetMapper;
+        this.userRepository = userRepository;
     }
 
     public TweetDto save(TweetSaveRequestDto dto) {
@@ -36,6 +39,8 @@ public class TweetService {
 
     //get all tweets
     public List<TweetDto> getAllTweets() {
+
+
         return tweetMapper.toDtoListFromEntityList(tweetRepository.findAll());
     }
 
