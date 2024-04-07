@@ -1,5 +1,6 @@
 package com.ruzzyfer.twitterlike.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ruzzyfer.twitterlike.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "users")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements UserDetails {
 
     @Id

@@ -8,6 +8,7 @@ import com.ruzzyfer.twitterlike.entity.Tweet;
 import com.ruzzyfer.twitterlike.mapper.TweetMapper;
 import com.ruzzyfer.twitterlike.repository.TweetRepository;
 import com.ruzzyfer.twitterlike.repository.UserRepository;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,10 +21,13 @@ public class TweetService {
     private final TweetMapper tweetMapper;
     private final UserRepository userRepository;
 
-    public TweetService(TweetRepository tweetRepository, TweetMapper tweetMapper, UserRepository userRepository) {
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+    public TweetService(TweetRepository tweetRepository, TweetMapper tweetMapper, UserRepository userRepository, KafkaTemplate<String, String> kafkaTemplate) {
         this.tweetRepository = tweetRepository;
         this.tweetMapper = tweetMapper;
         this.userRepository = userRepository;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     public TweetDto save(TweetSaveRequestDto dto) {
@@ -32,6 +36,7 @@ public class TweetService {
         tweet = tweetMapper.toEntityFromSaveRequestDto(dto);
 
         tweet.setCreatedAt(LocalDateTime.now());
+
 
         return tweetMapper.toDto(tweetRepository.save(tweet));
     }
@@ -98,6 +103,8 @@ public class TweetService {
             return UpdateType.NOTHING_CHANGED;
         }
     }
+
+
 
 
 }

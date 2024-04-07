@@ -1,5 +1,6 @@
 package com.ruzzyfer.twitterlike.entity;
 
+import com.ruzzyfer.twitterlike.enums.TweetCategory;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,5 +30,8 @@ public class Tweet {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    private TweetCategory category;
 
 }

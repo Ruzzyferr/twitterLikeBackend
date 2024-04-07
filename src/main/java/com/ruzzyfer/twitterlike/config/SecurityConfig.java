@@ -39,6 +39,8 @@ public class SecurityConfig {
                                         "/user/myprofile")
                                 .permitAll()
                                 .requestMatchers("/user/activeusers").hasAuthority("ADMIN")
+                                .requestMatchers("tweet/save",
+                                        "/likes/like/{tweetId}").hasAuthority("USER")
                                 .anyRequest().authenticated()
                 ).userDetailsService(userDetailsServiceImp)
                 .sessionManagement(session->session

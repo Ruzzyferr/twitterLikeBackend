@@ -2,6 +2,7 @@ package com.ruzzyfer.twitterlike.dto;
 
 import com.ruzzyfer.twitterlike.entity.Comment;
 import com.ruzzyfer.twitterlike.entity.User;
+import com.ruzzyfer.twitterlike.enums.TweetCategory;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -25,5 +26,7 @@ public class TweetDto {
     private List<Comment> comments = new ArrayList<>();
 
     private LocalDateTime createdAt;
+
+    private TweetCategory category;
 
 }

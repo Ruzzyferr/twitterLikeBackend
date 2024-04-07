@@ -101,7 +101,7 @@ public class TweetController {
         return new ResponseEntity<>(tweetService.deleteTweet(id), HttpStatus.OK);
     }
 
-    private User checkToken(HttpServletRequest request){
+    public User checkToken(HttpServletRequest request){
         String token = request.getHeader("Authorization");
 
         if (token != null && token.startsWith("Bearer ")) {
@@ -119,6 +119,8 @@ public class TweetController {
             throw new RuntimeException("HttpStatus.BAD_REQUEST");
         }
             }
+
+
     }
 
 
