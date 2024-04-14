@@ -48,10 +48,12 @@ public class DailyUserInteractionConsumer {
         // Eğer varsa, mevcut veriyi güncelle
         if (existingInteraction != null) {
             existingInteraction.setDailyActiveMinutes(existingInteraction.getDailyActiveMinutes() + 1);
+            existingInteraction.setInteractionCount(existingInteraction.getInteractionCount() + 1);
             saveInteractionToDatabase(existingInteraction);
         } else {
             // Yoksa, yeni bir veri oluştur
             interaction.setDailyActiveMinutes(1);
+            interaction.setInteractionCount(1);
             saveInteractionToDatabase(interaction);
         }
     }
